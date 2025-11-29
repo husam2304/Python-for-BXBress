@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: face-recognition-service
+    runtime: docker
+    plan: free
+    
+    # Health check endpoint
+    healthCheckPath: /api/health
+    healthCheckInterval: 30
+    
+    # Environment variables
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.10"
+      - key: PORT
+        value: "8000"
+    
+    # Build configuration
+    dockerfile: ./Dockerfile
+    dockerfilePath: ./Dockerfile
+    
+    # Auto-deploy on push
+    autoDeployOnPush: true
+
+# Environment configuration
+env: docker
