@@ -3,13 +3,20 @@ FROM python:3.10-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies required for OpenCV and face recognition
+# Install system dependencies required for OpenCV, face recognition, and building wheels
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
     libsm6 \
     libxext6 \
     libxrender-dev \
     libgomp1 \
+    libopenblas-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Upgrade pip and install build tools
+RUN pip install --upgrade pip setuptools wheel
 
 # Copy requirements first for better caching
 COPY requirements.txt .
